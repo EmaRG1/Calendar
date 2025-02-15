@@ -38,7 +38,7 @@ export const CalendarModal = () => {
   }
 
   const onCloseModal = () => {
-    console.log('cerrando modal')
+    console.log('cerrando el modal')
     setIsOpen(false);
   }
   return (
@@ -94,7 +94,7 @@ export const CalendarModal = () => {
 
           <button
               type="submit"
-              className="btn-block btn btn-outline-primary"
+              className="btn-block btn-outline-primary btn"
           >
               <i className="fa-save far"></i>
               <span> Guardar</span>
