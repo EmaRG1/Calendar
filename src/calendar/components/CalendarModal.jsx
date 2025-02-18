@@ -1,6 +1,10 @@
 import { addHours } from 'date-fns';
 import { useState } from 'react';
 import Modal from 'react-modal';
+import DatePicker, { registerLocale } from "react-datepicker";
+import { es } from 'date-fns/locale/es';
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const customStyles = {
   content: {
@@ -27,7 +31,9 @@ export const CalendarModal = () => {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const [formValues, setFormValues] = useState(initialForm)
+  const [formValues, setFormValues] = useState(initialForm);
+
+  registerLocale('es', es)
 
 
   const onInputChange = ({target}) => {
@@ -37,10 +43,24 @@ export const CalendarModal = () => {
     })
   }
 
+  const onDateChange = (event, changing) => {
+    setFormValues({
+      ...formValues,
+      [changing]: event
+    })
+  }
+
   const onCloseModal = () => {
     console.log('cerrando el modal')
     setIsOpen(false);
   }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(formValues)
+    setIsOpen(false);
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -52,17 +72,34 @@ export const CalendarModal = () => {
     >
       <h1> Nuevo evento </h1>
       <hr />
-      <form className="container">
+      <form className="container" onSubmit={onSubmit}>
 
-          <div className="form-group mb-2">
-            <label>Fecha y hora inicio</label>
-            <input className="form-control" placeholder="Fecha inicio" /> 
-          </div>
+        <div className="form-group mb-2">
+          <label>Fecha y hora inicio</label>
+          <DatePicker
+            selected={formValues.start}
+            className='form-control'
+            onChange={(event) => onDateChange(event, 'start')}
+            dateFormat='Pp'
+            showTimeSelect
+            locale='es'
+            timeCaption='Hora'
+          /> 
+        </div>
 
-          <div className="form-group mb-2">
+        <div className="form-group mb-2">
           <label>Fecha y hora fin</label>
-              <input className="form-control" placeholder="Fecha inicio" /> 
-          </div>
+          <DatePicker
+            minDate={formValues.start}
+            selected={formValues.end}
+            className='form-control'
+            onChange={(event) => onDateChange(event, 'end')}
+            dateFormat='Pp'
+            showTimeSelect
+            locale='es'
+            timeCaption='Hora'
+          />  
+        </div>
 
           <hr />
           <div className="form-group mb-2">
