@@ -3,11 +3,15 @@ import { createRoot } from 'react-dom/client'
 import { CalendarApp } from './CalendarApp.jsx'
 import './styles.css'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { store } from './store/store.js'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <CalendarApp />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <CalendarApp />
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
 )
