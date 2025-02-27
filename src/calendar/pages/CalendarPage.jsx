@@ -1,27 +1,20 @@
 import { Calendar } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
-import { addHours } from 'date-fns'
 import { NavBar, CalendarEvent, CalendarModal } from '../'  
 
 import { localizer, getMessagesES } from '../../helpers'
 import { useState } from 'react'
 import { useUiStore } from '../../hooks/useUiStore'
-
-const events = [{
-  title: 'Subida a Tafí',
-  notes: 'Some notes',
-  start: new Date(),
-  end: addHours(new Date(), 1),
-  user: {
-    _id: '123',
-    name: 'Emanuel'
-  }
-}]
+import { useCalendarStore } from '../../hooks/useCalendarStore'
+import FabAddNew from '../components/FabAddNew'
+import { addHours } from 'date-fns'
 
 export const CalendarPage = () => {
 
-  const { openModal } = useUiStore()
+  const { openModal } = useUiStore();
+
+  const { events, setActiveDateEvent } = useCalendarStore();
 
   const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week');
 
@@ -35,12 +28,24 @@ export const CalendarPage = () => {
      return {style}
    }
 
-  const onDoubleClick = () => {
-    console.log('double click')
+  const onOpenModal = () => {
     openModal();
   }
+  const onOpenModalWithEmptyEvent = () => {
+    openModal();
+    setActiveDateEvent({
+      title: '',
+      notes: '',
+      start: new Date(),
+      end: addHours(new Date(), 2),
+      user: {
+        _id: '123',
+        name: 'Emanuel'
+      }
+    });
+  }
   const onSelect = (event) => {
-    console.log('select:',event)
+    setActiveDateEvent(event);
   }
   const onViewChanged = (event) => {
     localStorage.setItem('lastView', event);
@@ -63,12 +68,13 @@ export const CalendarPage = () => {
         components={{
           event: CalendarEvent
         }}
-        onDoubleClickEvent={onDoubleClick}
+        onDoubleClickEvent={onOpenModal}
         onSelectEvent={onSelect}
         onView={onViewChanged}
       />
       
       <CalendarModal />
+      <FabAddNew onOpenModalWithEmptyEvent={onOpenModalWithEmptyEvent}/>
     </>
   )
 }
