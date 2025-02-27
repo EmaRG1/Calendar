@@ -10,12 +10,14 @@ export const useCalendarStore = () => {
     dispatch(setActiveEvent(calendarEvent));
   };
 
-  const addNewEvent = (newEvent) => {
-    dispatch(onAddNewEvent(newEvent))
-  }
+  const startSavingEvent = (calendarEvent) => {
 
-  const startEditingEvent = (eventToEdit) => {
-    dispatch(onEditEvent(eventToEdit))
+    if (calendarEvent._id) {
+      dispatch(onEditEvent({...calendarEvent}))
+    } else {
+      dispatch(onAddNewEvent({...calendarEvent, _id: new Date().getTime()}))
+    }
+
   }
   
   return {
@@ -26,7 +28,6 @@ export const useCalendarStore = () => {
 
     //Methods
     setActiveDateEvent,
-    addNewEvent,
-    startEditingEvent
+    startSavingEvent
   }
 }

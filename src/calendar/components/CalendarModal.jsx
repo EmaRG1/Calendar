@@ -40,7 +40,7 @@ export const CalendarModal = () => {
   registerLocale('es', es);
 
   const { isDateModalOpen, closeModal } = useUiStore();
-  const { activeEvent, addNewEvent } = useCalendarStore();
+  const { activeEvent, startSavingEvent } = useCalendarStore();
 
   useEffect(() => {
     if (activeEvent !== null) { 
@@ -87,7 +87,7 @@ export const CalendarModal = () => {
 
     if(formValues.title.length <=0 ) return console.log('Error en el titulo');
     
-    addNewEvent(formValues);
+    startSavingEvent(formValues);
     closeModal();
   }
 

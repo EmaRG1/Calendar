@@ -30,12 +30,13 @@ export const calendarSlice = createSlice({
        state.activeEvent = null
      },
      onEditEvent: (state, { payload }) => {
-       state.events.map(event => {
+       state.events = state.events.map(event => {
          if (event._id === payload._id) {
            return payload
          }
          return event
        })
+       state.activeEvent = null
      }
    }
 });
