@@ -49,6 +49,7 @@ export const CalendarModal = () => {
    }, [activeEvent])
 
   const titleClass = useMemo(() => {
+    if ( !formSubmitted ) return '';
 
     return (formValues.title.length > 0)
     ? ''
