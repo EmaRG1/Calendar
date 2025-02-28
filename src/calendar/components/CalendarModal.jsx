@@ -40,7 +40,7 @@ export const CalendarModal = () => {
   registerLocale('es', es);
 
   const { isDateModalOpen, closeModal } = useUiStore();
-  const { activeEvent, startSavingEvent } = useCalendarStore();
+  const { activeEvent, startSavingEvent, setActiveDateEvent } = useCalendarStore();
 
   useEffect(() => {
     if (activeEvent !== null) { 
@@ -70,7 +70,10 @@ export const CalendarModal = () => {
     })
   }
   const onCloseModal = () => {
-    closeModal()
+    closeModal();
+    setActiveDateEvent(null);
+    setFormValues(initialForm);
+    setFormSubmitted(false);
   }
 
 

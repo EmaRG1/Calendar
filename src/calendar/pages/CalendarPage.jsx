@@ -13,7 +13,7 @@ import FabDeleteItem from '../components/FabDeleteItem'
 
 export const CalendarPage = () => {
 
-  const { openModal } = useUiStore();
+  const { openModal, isDateModalOpen } = useUiStore();
 
   const { events, setActiveDateEvent, activeEvent } = useCalendarStore();
 
@@ -76,7 +76,7 @@ export const CalendarPage = () => {
       
       <CalendarModal />
       <FabAddNew onOpenModalWithEmptyEvent={onOpenModalWithEmptyEvent} />
-      <FabDeleteItem />
+      <FabDeleteItem isModalOpen={isDateModalOpen} />
     </>
   )
 }
