@@ -9,12 +9,13 @@ import { useUiStore } from '../../hooks/useUiStore'
 import { useCalendarStore } from '../../hooks/useCalendarStore'
 import FabAddNew from '../components/FabAddNew'
 import { addHours } from 'date-fns'
+import FabDeleteItem from '../components/FabDeleteItem'
 
 export const CalendarPage = () => {
 
   const { openModal } = useUiStore();
 
-  const { events, setActiveDateEvent } = useCalendarStore();
+  const { events, setActiveDateEvent, activeEvent } = useCalendarStore();
 
   const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week');
 
@@ -74,7 +75,8 @@ export const CalendarPage = () => {
       />
       
       <CalendarModal />
-      <FabAddNew onOpenModalWithEmptyEvent={onOpenModalWithEmptyEvent}/>
+      <FabAddNew onOpenModalWithEmptyEvent={onOpenModalWithEmptyEvent} />
+      <FabDeleteItem />
     </>
   )
 }

@@ -37,6 +37,14 @@ export const calendarSlice = createSlice({
          return event
        })
        state.activeEvent = null
+     },
+     onDeleteEvent: (state) => {
+       if (state.activeEvent) {
+         state.events = state.events.map(event => {
+           return (event._id !== state.activeEvent._id)
+         })
+         state.activeEvent = null
+       }
      }
    }
 });
@@ -45,5 +53,6 @@ export const calendarSlice = createSlice({
 export const {
   setActiveEvent,
   onAddNewEvent,
-  onEditEvent
+  onEditEvent,
+  onDeleteEvent
 } = calendarSlice.actions;
