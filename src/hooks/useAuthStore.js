@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux"
 import calendarAPI from "../api/calendarAPI";
-import { onChecking, onLogin, onLogout } from "../store/auth/authSlice";
+import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/auth/authSlice";
 
 export const useAuthStore = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,9 @@ export const useAuthStore = () => {
     } catch (error) {
       console.log(error)
       dispatch(onLogout('Invalid email or password'));
+      setTimeout(() => {
+        dispatch(clearErrorMessage())
+      },100)
     }
   }
 
