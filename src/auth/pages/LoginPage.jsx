@@ -34,7 +34,7 @@ export const LoginPage = () => {
     {
         if (errorMessage !== undefined)
         { 
-            Swal.fire('Error en la autenticación', errorMessage, 'error');
+            Swal.fire('Authentication error', errorMessage, 'error');
         }
     }, [errorMessage])
         
